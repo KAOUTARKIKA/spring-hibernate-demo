@@ -1,6 +1,6 @@
 package com.tp.metier;
 
-import com.tp.dao.IDao;
+import com.tp.dao.IProductDao;
 import com.tp.entities.Product;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,20 +11,19 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
-public class ProductDaoImpl implements IDao<Product> {
+@Transactional
+public class ProductDaoImpl implements IProductDao {
 
     @Autowired
     private SessionFactory sessionFactory;
 
     @Override
-    @Transactional
     public boolean create(Product product) {
         Session session = sessionFactory.getCurrentSession();
         session.save(product);
         return true;
     }
 
-    // Méthodes restantes à implémenter :
     @Override
     public boolean delete(Product product) {
         sessionFactory.getCurrentSession().delete(product);
